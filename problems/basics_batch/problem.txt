@@ -1,63 +1,59 @@
-Write a program that opens a LevelDB data-store using `{bold}level{/bold}`.
+`{bold}level{/bold}` を利用してLevelDBのデータストアをオープンするプログラムを書きましょう。
 
-The full path to the data-store will be provided to your program as
-the first command-line argument.
+プログラムに渡されるデータストアの絶対パスはコマンドライン引数のひとつめに設定されます。
 
-The second command-line argument will be a full path to a file
-containing some data you must load in to the data-store. Each {bold}line{/bold}
-of the file will contain two or three strings separated by commas. The
-first string will either be {italic}"put"{/italic} or {italic}"del"{/italic}, the second string will be
-a {italic}key{/italic} and in the case of a "put", the third string will be a {italic}value{/italic}.
+二つ目のコマンドライン引数はデータストア内にロードするデータファイルへの絶対パスとなります。
+そのファイルの各 {bold}行{/bold} はコンマで区切られた二つ、もしくは三つの文字列を含みます。
+最初の文字列は {italic}"put"{/italic} もしくは {italic}"del"{/italic} です。
+二つ目の文字列は {italic}キー{/italic} となり、"put" の場合には、三つ目の文字列は {italic}値{/italic} となります。
 
-For example:
+例：
 
   put,@izs,Isaac Z. Schlueter
   put,@tmpvar,Elijah Insua
   put,@mrbruning,Max Bruning
   del,@darachennis
 
-In this case, you have 3 new entries to add, mapping twitter handles
-to real names, and one entry to remove.
+この場合、Twitterのハンドルネームを実名にマッピングする3つのエントリーを追加します。
 
-You are encouraged to use the `batch()` method for this exercise. A
-{italic}batch{/italic} operation is an atomic, and efficient mechanism for performing
-multiple writes (put and delete).
+今回は `batch()` メソッドを使ってみましょう。 {italic}batch{/italic} オペレーションは
+アトミックで、複数のライト (putとdelete）を実行するのに効率的な仕組みです。
 
 ----------------------------------------------------------------------
-HINTS:
+ヒント:
 
-The `batch()` method has two forms:
+`batch()` メソッドには二つのフォームがあります。
 
- * The {italic}`Array` form{/italic} lets you provide an array containing your
-   operations followed by an optional callback. The array must contain
-   objects of the form:
-
+ * {italic}配列フォーム{/italic} はオプションのコールバックを含む、配列形式での
+   オペレーションを提供します。配列の必須項目は以下の項目です。
+   
      { type: 'put', key: 'foo', value: 'bar' }
-     or:
+     もしくは:
      { type: 'del', key: 'foo' }
 
- * The {italic}chained form{/italic} is closer to the way that LevelDB exposes its
-   batch operation. Calling `batch()` with no arguments returns a
-   `Batch` object that you can use to build your complete set of
-   writes and then submit when ready. It has the following methods:
+ * {Italic}チェインフォーム{/italic} はLevelDBのバッチオペレーションに近いものと
+   なっています。 `batch()` を引数無しで呼ぶと、 `Batch` オブジェクトが返ります。
+   そのオブジェクトを使って write のコマンド群(putやdelete)をチェインできます。
+   次のようなメソッドを含んでいます。
 
      - batch.put('key', 'value')
      - batch.del('key')
      - batch.write(callback)
 
-   You can't use the chained form of batch until the LevelUP instance
-   is {italic}"ready"{/italic}, you can determine this by either providing a callback
-   to the main `level()` function or by listening to a "ready" event
-   on the resulting LevelUP object. See the LevelUP documentation for
-   more details.
+   バッチのチェインフォームは LevelUP インスタンスが {italic}"ready"{/italic} 状態になるまで
+   使うことができません。その状態を検出するには `level()` 関数へのコールバックの
+   追加、もしくは LelvelUpオブジェクトに"ready"イベントリスナーを追加してください。
+   詳しくはLevelUPのドキュメントを参照してください。
 
-Batch writes are "atomic" in that either all writes succeed or they
-all fail. If you receive an error on your callback then you can safely
-assume that your whole batch failed.
+バッチによるライトはアトミックなので、全てのライトが成功するか、もしくは
+失敗するかのどちらかになります。コールバックにエラーを受け取った場合、
+バッチ処理全体が失敗したものと判断できます。
 
-The lines in the file can be safely split with:
+ファイルの各行は
 
   var arr = line.split(',')
 
-To get output for debugging when running `levelmeup run program.js`
-you should use console.error instead of console.log.
+によってわけられます。
+
+`levelmeup run program.js` を走らせた時にデバッグ出力を見たい場合、
+console.log ではなく、console.error を使ってください。
