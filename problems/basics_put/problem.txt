@@ -1,23 +1,21 @@
-Write a program that opens a LevelDB data-store using `{bold}level{/bold}`.
+`{bold}level{/bold}` を使ってLevelDBデータストアをオープンするプログラムを書いてみましょう。
 
-The full path to the data-store will be provided to your program as
-the first command-line argument.
+データストアへの絶対パスはプログラムの最初のコマンドライン引数に渡されます。
 
-The second command-line argument is a string containing a complete
-JSON-encoded object. Parse this object and {bold}put{/bold} each property of
-the object into your data-store where the property name is the entry's
-key and the property value is the entry's value.
+二つ目のコマンドライン引数はJSONエンコードされたオブジェクトを含みます。
+このオブジェクトをパースして、それぞれのプロパティを {bold}put{/bold} を
+利用してデータストアに書き込んでください。プロパティのキーはデータストアのキーに、
+値はデータストアの値としてください。
 
-Your solution will be verified by reading the data-store and checking
-against the object that was provided to you.
+検証にはデータストアの読み込みと、それによって読み込まれるオブジェクトに対して行われます。
 
 ----------------------------------------------------------------------
-HINTS:
+ヒント:
 
-The `put()` method in LevelUP is very simple, you just need to supply
-the key and value. An optional callback may be passed if you need
-to know when the data has been committed to the store or to
-properly catch any errors (otherwise errors will be thrown):
+LevelUPの `put()` メソッドはとてもシンプルです。キーと値を指定するだけです。
+オプションのコールバックはデータがストアにコミットされたことを検出したい場合、
+もしくはエラーが返って来てないかを検証する際に利用します。コールバックがなく、
+エラーが発生した場合にはそのエラーは Throw されます。
 
   var db = level('/path/to/db/')
   db.put('foo', 'bar', function (err) {
@@ -26,10 +24,9 @@ properly catch any errors (otherwise errors will be thrown):
     console.error('put foo = bar')
   })
 
-You may also call `db.close()` after all your callbacks have returned,
-however this is optional as the data-store will be automatically
-closed when your program exits. An open LevelDB store will not keep
-your program running indefinitely.
+全てのコールバックが返ってきた後に `db.close()` を呼んでも良いですが、
+これはオプションです。ストアの操作終了時にはデータストアは自動的にクローズされます。
+データストアを開くことでプログラムが永遠に走り続けることはありません。
 
-To get output for debugging when running `levelmeup run program.js`
-you should use console.error instead of console.log.
+`levelmeup run program.js` を走らせた時にデバッグ出力を見たい場合、
+console.log ではなく、console.error を使ってください。
