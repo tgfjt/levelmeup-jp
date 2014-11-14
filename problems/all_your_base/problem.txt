@@ -1,18 +1,18 @@
-To get into the rhythm, let's do a simple {italic}hello world{/italic}.
+まず最初にリズムをつかむため、シンプルな{italic}hello world{/italic}プログラムを
+作成してみましょう。
 
-Write a Node program that accepts two command-line arguments, {bold}X{/bold} and
-{bold}Y{/bold} and prints out to the console the following text:
+二つのコマンドライン引数、{bold}X{/bold}と{bold}Y{/bold}をとるプログラムを実装して
+次のようなテキストを出力してください。
 
   ALL YOUR {bold}{italic}X{/italic}{/bold} ARE BELONG TO {bold}{italic}Y{/italic}{/bold}
 
-When you have completed your program, you can run it in the test
-environment with:
+プログラムが出来上がったらそのプログラムをテスト環境で実行できます。
 
   {bold}{appname} run program.js{/bold}
 
-And once you are happy that it is correct then run:
+結果に満足したら次のようにして結果確認プログラムを実行してください。
 
   {bold}{appname} verify program.js{/bold}
 
-And your submission will be verified for correctness. After you have
-a correct solution, run `{bold}{appname}{/bold}` again and select the next problem!
+正しいプログラムと判断され、検証が終わったら再び `{bold}{appname}{/bold}` を実行して
+次の問題に取りかかりましょう！
