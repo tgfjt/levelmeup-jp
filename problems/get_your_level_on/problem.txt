@@ -1,35 +1,34 @@
-Write a program that opens a `{bold}level{/bold}` directory and reads a key from it.
+`{bold}level{/bold}` ディクショナリをオープンし、キーを読み取るプログラムを書きましょう。
 
-Your program should take two arguments, a LevelDB directory, and a key.
-your program should then retrive the value of that key, and write it to the console.
+プログラムは二つの引数を受け取らなければなりません。LevelDBのディクショナリとキーです。
+それからキーの値を取り出してコンソールに出力してください。
 
-for example, if `database_dir` contains a record `foo => bar` then the command
-`node levelread.js database_dir foo` should output `bar`.
+たとえば `database_dir` が `foo => bar` を含んでいる場合、 `node levelread.js database_dir foo`
+は `bar` を出力するようにしてください。
 
 ----------------------------------------------------------------------
-HINTS:
+ヒント:
 
-`{bold}level{/bold}` is a package that bundles both `{bold}levelup{/bold}`, the Node-friendly
-data-store API and `{bold}leveldown{/bold}`, the low-level LevelDB binding.
+`{bold}level{/bold}` は Node的なデータストアAPIを持つ、 `{bold}levelup{/bold}` と、
+ローレベルのLevelDBの操作を提供する `{bold}leveldown{/bold}` の双方をバンドルしています。
 
-Read more about Level and LevelUP:
+LevelとLevelUPに関してはこちらを参照してください:
   http://npm.im/levelup
-Or off-line on your local filesystem:
+もしくはローカルのファイルシステムにもドキュメントがあります。
   {rootdir}/docs/levelup.html
 
-You will need to `npm install level` to get started with this
-exercise.
+このエクササイズを始める際、`npm install level` することが必要になるでしょう。
 
-If you don't have an Internet connection, simply make a `node_modules`
-directory and copy the following directory into it:
+もしインターネット接続がない環境では `node_modules` ディレクトリを作成し、
+次のディレクトリをそこへコピーしてください。
   {rootdir}/node_modules/level/
 
-You can open an existing data-store, or create a new one, by invoking
-`level()` and passing in a path to a directory. The function returns
-a new {italic}LevelUP{/italic} instance.
+すでに存在するデータストアをオープンすることができるほか、新しい物を作ることもできます。
+`level()` を実行し、ディレクトリのパスを指定してください、この関数は新しい {italic}LevelUP{/italic}
+のインスタンスを返します。
 
-All LevelUP methods are asynchronous. To {italic}get{/italic} a value out of the
-data-store, use the `.get(key, callback)` method:
+全ての LevelUP メソッドは非同期です。データストアから値を取り出す場合には、
+`.get(key, callback)` メソッドを利用してください。
 
   var level = require('level')
   var db = level('/path/to/db/')
