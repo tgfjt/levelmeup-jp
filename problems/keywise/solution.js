@@ -1,4 +1,4 @@
-var level = require('level')
+var level = require('level-prebuilt')
 var db = level(process.argv[2], { valueEncoding: 'json' })
 var data = require(process.argv[3])
 var operations = data.map(function (row) {

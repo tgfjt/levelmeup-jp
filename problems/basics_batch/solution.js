@@ -1,5 +1,5 @@
 var fs = require('fs')
-var level = require('level')
+var level = require('level-prebuilt')
 
 // read file and split into an array of lines
 var data = fs.readFileSync(process.argv[3], 'utf8').split('\n')

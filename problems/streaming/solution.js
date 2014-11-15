@@ -1,4 +1,4 @@
-var level = require('level')
+var level = require('level-prebuilt')
 var db = level(process.argv[2])
 db.createReadStream()
   .on('data', function (data) {

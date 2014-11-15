@@ -1,5 +1,5 @@
 const path        = require('path')
-    , level       = require('level')
+    , level       = require('level-prebuilt')
     , existing    = require('../../lib/setup-existing')
     , PassThrough = require('stream').PassThrough || require('readable-stream/passthrough')
     , through2map = require('through2-map')

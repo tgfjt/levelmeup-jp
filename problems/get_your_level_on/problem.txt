@@ -30,7 +30,7 @@ LevelとLevelUPに関してはこちらを参照してください:
 全ての LevelUP メソッドは非同期です。データストアから値を取り出す場合には、
 `.get(key, callback)` メソッドを利用してください。
 
-  var level = require('level')
+  var level = require('level-prebuilt')
   var db = level('/path/to/db/')
   db.get('foo', function (err, value) {
     console.log('foo =', value)

@@ -1,4 +1,4 @@
-var level = require('level')
+var level = require('level-prebuilt')
 var db = level(process.argv[2])
 var obj = JSON.parse(process.argv[3])
 

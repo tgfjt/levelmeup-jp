@@ -1,6 +1,6 @@
 const path       = require('path')
     , os         = require('os')
-    , level      = require('level')
+    , level      = require('level-prebuilt')
     , net        = require('net')
     , multilevel = require('multilevel')
     , dir        = path.join(os.tmpDir(), '~levelmeup_' + process.pid)

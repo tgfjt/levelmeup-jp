@@ -1,4 +1,4 @@
-var level = require('level')
+var level = require('level-prebuilt')
 var sub = require('level-sublevel')
 var db = sub(level(process.argv[2]))
 

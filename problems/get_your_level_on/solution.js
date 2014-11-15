@@ -1,4 +1,4 @@
-var level = require('level')
+var level = require('level-prebuilt')
 var db = level(process.argv[2])
 var key = process.argv[3]
 

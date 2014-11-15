@@ -3,7 +3,7 @@ module.exports.args = -1
 
 const path     = require('path')
     , fs       = require('fs')
-    , level    = require('level')
+    , level    = require('level-prebuilt')
     , wrapped  = require('../../lib/wrapped-level')
     , db       = level(process.argv[4])
     , file     = process.argv[3]

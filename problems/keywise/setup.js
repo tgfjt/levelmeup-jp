@@ -1,4 +1,4 @@
-var level = require('level')
+var level = require('level-prebuilt')
 var os = require('os')
 var path = require('path')
 var through = require('through2')
