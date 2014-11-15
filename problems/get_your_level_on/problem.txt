@@ -17,11 +17,11 @@ LevelとLevelUPに関してはこちらを参照してください:
 もしくはローカルのファイルシステムにもドキュメントがあります。
   {rootdir}/docs/levelup.html
 
-このエクササイズを始める際、`npm install level` することが必要になるでしょう。
+このエクササイズを始める際、`npm install level-prebuilt` することが必要になるでしょう。
 
 もしインターネット接続がない環境では `node_modules` ディレクトリを作成し、
 次のディレクトリをそこへコピーしてください。
-  {rootdir}/node_modules/level/
+  {rootdir}/node_modules/level-prebuilt/
 
 すでに存在するデータストアをオープンすることができるほか、新しい物を作ることもできます。
 `level()` を実行し、ディレクトリのパスを指定してください、この関数は新しい {italic}LevelUP{/italic}

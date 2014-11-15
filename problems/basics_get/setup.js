@@ -1,5 +1,5 @@
 const path      = require('path')
-    , gibberish = require('echomunge/dir2gibberish').bind(null, path.join(__dirname,'../../node_modules/level/'))
+    , gibberish = require('echomunge/dir2gibberish').bind(null, path.join(__dirname,'../../node_modules/level-prebuilt/'))
     , existing  = require('../../lib/setup-existing')
 
 function setup (run, callback) {
