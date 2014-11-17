@@ -6,5 +6,5 @@ db.get(key, function (err, value) {
   if (err)
     throw err
 
-  console.log(value)
+  console.log(value);
 })

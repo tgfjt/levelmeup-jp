@@ -1,3 +1,17 @@
+var exercise      = require('workshopper-exercise')()
+  , filecheck     = require('workshopper-exercise/filecheck')
+  , execute       = require('workshopper-exercise/execute')
+  , comparestdout = require('workshopper-exercise/comparestdout')
+
+// checks that the submission file actually exists
+exercise = filecheck(exercise)
+
+// execute the solution and submission in parallel with spawn()
+exercise = execute(exercise)
+
+// compare stdout of solution and submission
+exercise = comparestdout(exercise)
+
 const path        = require('path')
     , level       = require('level')
     , gibberish   = require('echomunge/dir2gibberish').bind(null, path.join(__dirname, '../..'))
@@ -15,7 +29,9 @@ function streamTo (dir, out) {
     .pipe(out)
 }
 
-function setup (run, callback) {
+exercise.addSetup(function (mode, callback) {
+  var run = mode === 'run'
+
   existing.setup(run, false)
 
   var c             = Math.ceil(Math.random() * 10) + 2
@@ -33,15 +49,19 @@ function setup (run, callback) {
   setTimeout(streamTo.bind(null, existing.dir1, submissionOut), 500)
   ;!run && setTimeout(streamTo.bind(null, existing.dir2, solutionOut), 500)
 
-  callback(null, {
-      submissionArgs : [ existing.dir1, jsonobj ]
-    , solutionArgs   : [ existing.dir2, jsonobj ]
-    , long           : true
-    , close          : existing.cleanup
-    , a              : submissionOut
-    , b              : !run && solutionOut
-  })
-}
+  this.submissionArgs = [ existing.dir1, jsonobj ]
+  this.solutionArgs   = [ existing.dir2, jsonobj ]
+  this.a              = submissionOut
+  this.b              = !run && solutionOut
 
-module.exports       = setup
-module.exports.async = true
+  process.nextTick(callback)    
+})
+
+exercise.addCleanup(function (mode, passed, callback) {
+  // mode == 'run' || 'verify'
+
+  existing.cleanup(callback)
+})
+
+module.exports = exercise
+

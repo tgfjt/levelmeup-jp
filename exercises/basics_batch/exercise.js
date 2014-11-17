@@ -1,3 +1,17 @@
+var exercise      = require('workshopper-exercise')()
+  , filecheck     = require('workshopper-exercise/filecheck')
+  , execute       = require('workshopper-exercise/execute')
+  , comparestdout = require('workshopper-exercise/comparestdout')
+
+// checks that the submission file actually exists
+exercise = filecheck(exercise)
+
+// execute the solution and submission in parallel with spawn()
+exercise = execute(exercise)
+
+// compare stdout of solution and submission
+exercise = comparestdout(exercise)
+
 const path        = require('path')
     , fs          = require('fs')
     , os          = require('os')
@@ -13,12 +27,15 @@ function streamTo (dir, out) {
 
   db.readStream()
     .pipe(through2map({ objectMode: true }, function (data) {
+      console.log(data);
       return data.key + ' = ' + data.value + '\n'
     }))
     .pipe(out)
 }
 
-function setup (run, callback) {
+exercise.addSetup(function (mode, callback) {
+  var run = mode === 'run'
+
   existing.setup(run)
 
   var i             = Math.ceil(Math.random() * 10) + 5
@@ -44,24 +61,29 @@ function setup (run, callback) {
   fs.writeFileSync(dataFile, fileContents, 'utf8')
 
   existing.writeAndClose(
-      function (db, callback) {
-        db.batch(ops, callback)
+      function (db, cb) {
+        db.batch(ops, cb)
       }
     , function (err) {
         setTimeout(streamTo.bind(null, existing.dir1, submissionOut), 500)
         ;!run && setTimeout(streamTo.bind(null, existing.dir2, solutionOut), 500)
 
-        callback(null, {
-            submissionArgs : [ existing.dir1, dataFile ]
-          , solutionArgs   : [ existing.dir2, dataFile ]
-          , long           : true
-          , close          : existing.cleanup
-          , a              : submissionOut
-          , b              : !run && solutionOut
-        })
+        exercise.submissionArgs = [ existing.dir1, dataFile ]
+        exercise.solutionArgs   = [ existing.dir2, dataFile ]
+        exercise.a              = submissionOut
+        exercise.b              = !run && solutionOut
+
+        process.nextTick(callback)
       }
   )
-}
+})
 
-module.exports       = setup
-module.exports.async = true
+exercise.addCleanup(function (mode, passed, callback) {
+  // mode == 'run' || 'verify'
+
+  existing.cleanup(callback)
+})
+
+module.exports = exercise
+
+
